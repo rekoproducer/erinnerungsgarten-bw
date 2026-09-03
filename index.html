@@ -600,6 +600,9 @@ img { display: block; width: 100%; }
 }
 .plan-consent a { color: var(--akzent); text-decoration: underline; }
 
+/* Ankerziel nicht unter den fixierten Header rutschen lassen */
+#datenschutz-belegungsplaene { scroll-margin-top: 130px; }
+
 /* Hinweis unter dem geladenen Plan – wird erst per JS eingefügt */
 .plan-zoom-note {
   font-size: 0.74rem; color: rgba(138,123,106,0.7);
@@ -985,7 +988,10 @@ img { display: block; width: 100%; }
               Cookies werden dabei nicht gesetzt.
             </p>
             <button type="button" class="btn-solid">Belegungsplan laden</button>
-            <p class="plan-consent-note">Ihre Zustimmung gilt nur für diese Seitenansicht.</p>
+            <p class="plan-consent-note">
+              Beim Laden werden Daten an die IWI GmbH übertragen. Mehr dazu in unserer
+              <a href="#" data-page="datenschutz" data-anchor="datenschutz-belegungsplaene">Datenschutzerklärung</a>.
+            </p>
           </div>
         </div>
       </div>
@@ -1067,7 +1073,10 @@ img { display: block; width: 100%; }
               Cookies werden dabei nicht gesetzt.
             </p>
             <button type="button" class="btn-solid">Belegungsplan laden</button>
-            <p class="plan-consent-note">Ihre Zustimmung gilt nur für diese Seitenansicht.</p>
+            <p class="plan-consent-note">
+              Beim Laden werden Daten an die IWI GmbH übertragen. Mehr dazu in unserer
+              <a href="#" data-page="datenschutz" data-anchor="datenschutz-belegungsplaene">Datenschutzerklärung</a>.
+            </p>
           </div>
         </div>
       </div>
@@ -1418,7 +1427,32 @@ img { display: block; width: 100%; }
         lit.&nbsp;b bzw. lit.&nbsp;f DSGVO.
       </p>
 
-      <h2>9. Ihre Rechte als betroffene Person</h2>
+      <h2 id="datenschutz-belegungsplaene">9. Belegungspläne unserer Grabanlagen</h2>
+      <p>
+        Auf unseren Standortseiten binden wir interaktive Belegungspläne ein. Anbieter ist
+        die <strong>IWI GmbH</strong>, Zum Offerbach 58, 48163 Münster, vertreten durch die
+        Geschäftsführer Martin Dziuk, Martin Kurze, Dr. Bernd Schneider und Stephan Strunk
+        (info@iwi.de, Telefon 02536 3445-800), über den Dienst ruhestaettenonline.de.
+        Zur Darstellung werden zusätzlich Dateien vom Server grabanlagen.info geladen.
+      </p>
+      <p>
+        Der Plan wird nicht automatisch geladen. Sie sehen zunächst nur eine Vorschaufläche.
+        Erst wenn Sie diese anklicken, wird die Verbindung zu den genannten Anbietern
+        hergestellt. Dabei werden Ihre IP-Adresse, Ihr Browsertyp (User-Agent) und der
+        Zeitpunkt des Aufrufs übertragen. Cookies werden nach unserer Prüfung nicht gesetzt.
+      </p>
+      <p>
+        Rechtsgrundlage der Verarbeitung ist Ihre Einwilligung nach Art. 6 Abs.&nbsp;1
+        lit.&nbsp;a DSGVO, die Sie durch den Klick auf die Vorschaufläche erteilen. Sie können
+        die Einwilligung jederzeit widerrufen, indem Sie die Seite neu laden und den Plan
+        nicht erneut aktivieren.
+      </p>
+      <p>
+        Die Datenschutzhinweise des Anbieters finden Sie unter
+        <a href="https://www.iwi.de" target="_blank" rel="noopener">www.iwi.de</a>.
+      </p>
+
+      <h2>10. Ihre Rechte als betroffene Person</h2>
       <p>Ihnen stehen nach der DSGVO folgende Rechte zu:</p>
       <ul>
         <li>Auskunft über die zu Ihnen gespeicherten Daten (Art. 15 DSGVO)</li>
@@ -1434,7 +1468,7 @@ img { display: block; width: 100%; }
         <a class="mail-link" data-u="info" data-d="friedhofsgaertnerei-hilligardt.de" href="#">E-Mail anzeigen</a>.
       </p>
 
-      <h2>10. Beschwerderecht bei der Aufsichtsbehörde</h2>
+      <h2>11. Beschwerderecht bei der Aufsichtsbehörde</h2>
       <p>
         Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Die für
         uns zuständige Behörde ist:
@@ -1445,7 +1479,7 @@ img { display: block; width: 100%; }
         <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">www.baden-wuerttemberg.datenschutz.de</a>
       </p>
 
-      <h2>11. Aktualität</h2>
+      <h2>12. Aktualität</h2>
       <p>
         Stand dieser Datenschutzerklärung: Juni 2026.
         Wir behalten uns vor, diese Erklärung anzupassen, um sie an geänderte Rechtslagen oder
@@ -1510,6 +1544,11 @@ document.addEventListener('DOMContentLoaded', function() {
       const page = el.dataset.page;
       showPage(page);
       if (el.dataset.scrollGaerten) scrollToGaerten();
+      // Optionaler Ankersprung innerhalb der Zielseite (z. B. Datenschutz-Abschnitt)
+      if (el.dataset.anchor) {
+        const anchor = document.getElementById(el.dataset.anchor);
+        if (anchor) requestAnimationFrame(() => anchor.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      }
     } else if (scrollEl) {
       e.preventDefault();
       showPage('home');
