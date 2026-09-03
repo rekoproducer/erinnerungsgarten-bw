@@ -567,8 +567,43 @@ img { display: block; width: 100%; }
   border: 1px solid rgba(138,123,106,0.18);
   overflow: hidden;
 }
+/* Höhe bewusst nur über CSS – die iframes tragen kein width/height im Markup */
 .iframe-wrap iframe {
-  display: block; width: 100%; height: 580px; border: none;
+  display: block; width: 100%; height: 860px; border: none;
+}
+@media (max-width: 720px) {
+  .iframe-wrap iframe { height: max(480px, 70vh); }
+}
+
+/* ---- Zwei-Klick-Lösung für den externen Belegungsplan ---- */
+.plan-consent {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  gap: 1.1rem; padding: 3.5rem 2rem;
+  min-height: 860px;
+  background: var(--pergament);
+}
+@media (max-width: 720px) {
+  .plan-consent { min-height: max(480px, 70vh); padding: 2.5rem 1.4rem; }
+}
+.plan-consent h4 {
+  font-family: var(--font-serif); font-weight: 400;
+  font-size: 1.45rem; color: var(--dunkel);
+}
+.plan-consent p {
+  max-width: 48ch; font-size: 0.85rem;
+  line-height: 1.75; color: var(--stein);
+}
+.plan-consent-note {
+  font-size: 0.72rem; letter-spacing: 0.05em;
+  color: rgba(138,123,106,0.75);
+}
+.plan-consent a { color: var(--akzent); text-decoration: underline; }
+
+/* Hinweis unter dem geladenen Plan – wird erst per JS eingefügt */
+.plan-zoom-note {
+  font-size: 0.74rem; color: rgba(138,123,106,0.7);
+  margin-top: 0.6rem; letter-spacing: 0.05em;
 }
 
 .cta-box {
@@ -940,11 +975,19 @@ img { display: block; width: 100%; }
         <div class="divider"></div>
         <p>Den aktuellen Belegungsplan finden Sie hier. Freie Grabstätten sind direkt erkennbar und können reserviert werden.</p>
         <div class="iframe-wrap">
-          <iframe src="about:blank" title="Belegungsplan Kapfenhardt" loading="lazy">
-            <!-- iframe-URL von ruhestaetten-online.de hier eintragen -->
-          </iframe>
+          <div class="plan-consent"
+               data-plan-src="https://www.ruhestaettenonline.de/app/#/page/field/extern/94feda29-3154-4599-87c9-635e40cddf5a"
+               data-plan-title="Belegungsplan Erinnerungsgarten Kapfenhardt">
+            <h4>Belegungsplan von einem externen Dienst</h4>
+            <p>
+              Der interaktive Belegungsplan wird von <strong>ruhestaettenonline.de</strong> (IWI GmbH) bereitgestellt.
+              Beim Laden wird Ihre IP-Adresse an ruhestaettenonline.de und grabanlagen.info übertragen.
+              Cookies werden dabei nicht gesetzt.
+            </p>
+            <button type="button" class="btn-solid">Belegungsplan laden</button>
+            <p class="plan-consent-note">Ihre Zustimmung gilt nur für diese Seitenansicht.</p>
+          </div>
         </div>
-        <p class="placeholder-note">↑ iframe-URL von ruhestaetten-online.de einsetzen</p>
       </div>
 
       <div class="cta-box fade-up">
@@ -1014,11 +1057,19 @@ img { display: block; width: 100%; }
         <div class="divider"></div>
         <p>Den aktuellen Belegungsplan finden Sie hier. Freie Grabstätten sind direkt erkennbar und können reserviert werden.</p>
         <div class="iframe-wrap">
-          <iframe src="about:blank" title="Belegungsplan Unterreichenbach" loading="lazy">
-            <!-- iframe-URL von ruhestaetten-online.de hier eintragen -->
-          </iframe>
+          <div class="plan-consent"
+               data-plan-src="https://www.ruhestaettenonline.de/app/#/page/field/extern/491a67b4-2344-4fc1-be2b-d56fb5745687"
+               data-plan-title="Belegungsplan Erinnerungsgarten Unterreichenbach">
+            <h4>Belegungsplan von einem externen Dienst</h4>
+            <p>
+              Der interaktive Belegungsplan wird von <strong>ruhestaettenonline.de</strong> (IWI GmbH) bereitgestellt.
+              Beim Laden wird Ihre IP-Adresse an ruhestaettenonline.de und grabanlagen.info übertragen.
+              Cookies werden dabei nicht gesetzt.
+            </p>
+            <button type="button" class="btn-solid">Belegungsplan laden</button>
+            <p class="plan-consent-note">Ihre Zustimmung gilt nur für diese Seitenansicht.</p>
+          </div>
         </div>
-        <p class="placeholder-note">↑ iframe-URL von ruhestaetten-online.de einsetzen</p>
       </div>
 
       <div class="cta-box fade-up">
@@ -1569,6 +1620,32 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.key === 'Escape')     hide();
       if (e.key === 'ArrowLeft')  show(idx - 1);
       if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  })();
+
+  /* ---------- BELEGUNGSPLAN: Zwei-Klick-Lösung ----------
+     Das iframe existiert erst nach dem Klick. Vorher geht kein
+     einziger Request an ruhestaettenonline.de oder grabanlagen.info. */
+  (function planConsent() {
+    document.querySelectorAll('.plan-consent').forEach(box => {
+      const btn = box.querySelector('button');
+      if (!btn) return;
+      btn.addEventListener('click', () => {
+        const wrap = box.closest('.iframe-wrap');
+        const frame = document.createElement('iframe');
+        frame.src            = box.dataset.planSrc;
+        frame.title          = box.dataset.planTitle;
+        frame.loading        = 'lazy';
+        frame.referrerPolicy = 'no-referrer';
+        frame.setAttribute('allowfullscreen', '');
+        box.replaceWith(frame);
+
+        // Zoom-Hinweis erst jetzt – in der Vorschau soll er nicht stehen
+        const note = document.createElement('p');
+        note.className   = 'plan-zoom-note';
+        note.textContent = 'Zum Vergrößern die Plus- und Minus-Tasten im Plan nutzen.';
+        wrap.after(note);
+      });
     });
   })();
 
