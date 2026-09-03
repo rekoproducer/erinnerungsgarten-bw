@@ -1079,18 +1079,24 @@ img { display: block; width: 100%; }
         </div>
 
         <!--
-          ┌─────────────────────────────────────────────────────┐
-          │  FORMSPREE SETUP – NUR DIESE EINE ZEILE ANPASSEN:   │
-          │  1. Konto auf formspree.io erstellen (kostenlos)    │
-          │  2. Neues Formular anlegen                          │
-          │  3. Die ID unten ersetzen: xpzgkwqr → deine ID     │
-          └─────────────────────────────────────────────────────┘
+          ┌──────────────────────────────────────────────────────────────┐
+          │  FORMSPREE – Versand des Kontaktformulars                    │
+          │                                                              │
+          │  Formular-ID: mnjboebg (steht unten in der action-URL)       │
+          │                                                              │
+          │  Der EMPFÄNGER steht NICHT hier im Code, sondern nur im      │
+          │  Formspree-Dashboard:                                        │
+          │    formspree.io → Forms → mnjboebg → Settings →              │
+          │    "Send email notifications to"                             │
+          │                                                              │
+          │  Soll-Empfänger: kontakt@seelenfrieden-bw.de (Nick Köhler)   │
+          │  Neue Empfängeradresse muss den Bestätigungslink von         │
+          │  Formspree anklicken, sonst werden keine Mails zugestellt.   │
+          └──────────────────────────────────────────────────────────────┘
         -->
         <form class="kontakt-form" id="kontakt-form"
               action="https://formspree.io/f/mnjboebg"
               method="POST">
-
-          <!-- Empfänger-Hinweis (Formspree leitet an kontakt@erinnerungsgarten-bw.de weiter) -->
           <input type="hidden" name="_subject" value="Neue Anfrage – Erinnerungsgarten BW" />
           <input type="hidden" name="_language" value="de" />
 
