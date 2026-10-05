@@ -653,6 +653,20 @@ img { display: block; width: 100%; }
 .grab-item p { grid-column: 1 / -1; font-size: 0.88rem; color: var(--stein); line-height: 1.75; }
 .grab-preis-note { margin-top: 1.8rem; max-width: 60ch; font-size: 0.9rem; color: var(--stein); line-height: 1.8; }
 .grab-preis-note + .btn-ext { margin-top: 1.1rem; }
+.grab-preis-row {
+  grid-column: 1 / -1;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.6rem;
+  margin-top: 0.35rem;
+}
+.grab-preis { font-family: var(--font-serif); font-size: 1.25rem; color: var(--erde); }
+.grab-pdf {
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--akzent); border-bottom: 1px solid rgba(122,92,62,0.35);
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.grab-pdf:hover { color: var(--erde); border-color: var(--erde); }
+.grab-pdf:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; }
+.grab-preis-note + .grab-pdf { display: inline-block; margin-top: 0.9rem; }
 @media (max-width: 520px) {
   .grab-item { grid-template-columns: 1fr; }
 }
@@ -1347,31 +1361,51 @@ img { display: block; width: 100%; }
             <h3>Urnenbeisetzung am Baum</h3>
             <span class="grab-laufzeit">Laufzeit 20 Jahre</span>
             <p>Grünes Grab mit anteiligem Grabmal und Beschriftung.</p>
+            <div class="grab-preis-row">
+              <span class="grab-preis">2.990 €</span>
+              <a class="grab-pdf" href="downloads/schellbronn/schellbronn-angebot-3-urnenbeisetzung-am-baum.pdf"
+                 target="_blank" rel="noopener"
+                 aria-label="Angebot Nr. 3, Urnenbeisetzung am Baum, als PDF öffnen (1,5 MB)">Angebot Nr. 3 · PDF</a>
+            </div>
           </div>
           <div class="grab-item">
             <h3>Urnengrabstätte</h3>
             <span class="grab-laufzeit">Laufzeit 20 Jahre</span>
             <p>Grünes Grab mit Grabmal und Erstbeschriftung.</p>
+            <div class="grab-preis-row">
+              <span class="grab-preis">6.690 €</span>
+              <a class="grab-pdf" href="downloads/schellbronn/schellbronn-angebot-2-urnengrabstaette.pdf"
+                 target="_blank" rel="noopener"
+                 aria-label="Angebot Nr. 2, Urnengrabstätte, als PDF öffnen (1,5 MB)">Angebot Nr. 2 · PDF</a>
+            </div>
           </div>
           <div class="grab-item">
             <h3>Sarggrab</h3>
             <span class="grab-laufzeit">Laufzeit 30 Jahre</span>
             <p>Grünes Grab mit Grabmal und Erstbeschriftung.</p>
+            <div class="grab-preis-row">
+              <span class="grab-preis">8.290 €</span>
+              <a class="grab-pdf" href="downloads/schellbronn/schellbronn-angebot-1a-sarggrab.pdf"
+                 target="_blank" rel="noopener"
+                 aria-label="Angebot Nr. 1a, Sarggrab, als PDF öffnen (1,1 MB)">Angebot Nr. 1a · PDF</a>
+            </div>
           </div>
           <div class="grab-item">
             <h3>Sarg-Doppelgrab</h3>
             <span class="grab-laufzeit">Laufzeit 30 Jahre</span>
             <p>Grünes Grab mit Grabmal und Erstbeschriftung.</p>
+            <div class="grab-preis-row">
+              <span class="grab-preis">10.990 €</span>
+              <a class="grab-pdf" href="downloads/schellbronn/schellbronn-angebot-1b-sarg-doppelgrab.pdf"
+                 target="_blank" rel="noopener"
+                 aria-label="Angebot Nr. 1b, Sarg-Doppelgrab, als PDF öffnen (1,1 MB)">Angebot Nr. 1b · PDF</a>
+            </div>
           </div>
         </div>
-        <p class="grab-preis-note">Aktuelle Preise und Angebotsunterlagen finden Sie auf der Website von Seelenfrieden.</p>
-        <a class="btn-ext"
-           href="https://seelenfrieden-bw.de/beisetzungsformen-und-preise/"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Preise und Angebotsunterlagen auf seelenfrieden-bw.de – externe Website, wird in einem neuen Fenster geöffnet">
-          Preise bei Seelenfrieden ansehen
-          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 10.5 10.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6.5 5.5h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+        <p class="grab-preis-note">Gesamtpreise inklusive Bearbeitungsgebühr und Mehrwertsteuer. Die Kosten für die Grabnutzung sind enthalten, zusätzliche Nutzungsgebühren fallen nicht an. Das Öffnen und Schließen der Gräber ist im Angebot enthalten. Bei einer weiteren Beisetzung muss der Dauergrabpflegevertrag verlängert werden.</p>
+        <a class="grab-pdf" href="downloads/schellbronn/schellbronn-preisliste.pdf"
+           target="_blank" rel="noopener"
+           aria-label="Preisliste Neuhausen-Schellbronn als PDF öffnen (90 KB)">Preisliste Schellbronn · PDF</a>
       </div>
 
       <!-- TODO Belegungsplan Schellbronn: UUID von IWI anfordern.
